@@ -82,12 +82,13 @@ module.exports.updateMovie = (req,res) => {
           res.status(404).json(err)
           return
         }
-				//replace the data from the body
-				for(let key of Object.keys(bodyMovie)){
-					if(key !== 'rates'){
-						movie[key] = bodyMovie.key
+        //replace the data from the body
+        const keys = Object.keys(bodyMovie)
+        keys.forEach(key=>{
+          if(key !== 'rates'){
+						movie[key] = bodyMovie[key]
 					}
-				}
+        })
 				//Adding a new rate, if there is some
 				if(bodyMovie.rates){
 					if(bodyMovie.rates.length > 0){
@@ -110,7 +111,7 @@ module.exports.updateMovie = (req,res) => {
 						movie.rated = Math.round(avg)
 					}
 				}
-				movie.updated_at = new Date()
+        movie.updated_at = new Date()
 				//Save the updated movie
         movie.save((err, movie) => {
           if (err) {
