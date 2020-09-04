@@ -83,7 +83,7 @@ module.exports.updateMovie = (req,res) => {
           return
         }
 				//replace the data from the body
-				for(let key of bodyMovie.keys()){
+				for(let key of Object.keys(bodyMovie)){
 					if(key !== 'rates'){
 						movie[key] = bodyMovie.key
 					}
